@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Type } from "class-transformer";
 import { IsArray, IsNotEmpty, IsUUID, ValidateNested } from "class-validator";
 

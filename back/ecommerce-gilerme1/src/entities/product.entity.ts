@@ -1,0 +1,37 @@
+/* eslint-disable prettier/prettier */
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+} from 'typeorm';
+import { Category } from 'src/entities/category.entity';
+import { OrderDetail } from 'src/entities/orderDetails.entity'; // Agregar esto
+
+@Entity('products')
+export class Product {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ type: 'varchar', length: 50, nullable: false }) 
+  name: string;
+
+  @Column({ type: 'text', nullable: false }) 
+  description: string;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false }) 
+  price: number;
+
+  @Column({ type: 'int', nullable: false }) 
+  stock: number;
+
+  @Column({ type: 'varchar', default: 'https://via.placeholder.com/150' })
+  imgUrl?: string; // Sigue siendo opcional en TS ya que tiene un default
+
+  @ManyToOne(() => Category, (category) => category.products, { eager: true, nullable: false }) 
+  category: Category;
+
+  @ManyToMany(() => OrderDetail, (orderDetail) => orderDetail.products)
+  orderDetails: OrderDetail[];
+}

@@ -30,5 +30,9 @@ export class ProductsRepository {
     async findById(id: string) {
         return this.repo.findOne({ where: { id } });
     }
+
+    async update(id: string, data: Partial<Product>) {
+    await this.repo.update({ id }, data);
+    }
 }
 

@@ -45,5 +45,10 @@ export class ProductsService {
     getById(id: string) {
         return this.productRepo.findById(id);
     }
+
+    async update(id: string, data: Partial<any>) {
+        await this.productRepo.update(id, data);
+            return this.getById(id);
+    }
 }
 

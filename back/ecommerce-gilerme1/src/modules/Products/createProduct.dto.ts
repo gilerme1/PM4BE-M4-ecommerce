@@ -1,22 +1,27 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-// src/products/dto/create-product.dto.ts
+import { IsString, IsNumber, IsOptional, IsUUID, IsUrl, Min, MaxLength } from 'class-validator';
 
-// import { IsBoolean, IsNumber, IsString, IsUrl } from 'class-validator';
+export class CreateProductDto {
+    @IsString()
+    @MaxLength(100)
+    name: string;
 
-// export class CreateProductDto {
-//     @IsString()
-//     name: string;
+    @IsString()
+    @MaxLength(300)
+    description: string;
 
-//     @IsString()
-//     description: string;
+    @IsNumber()
+    @Min(0)
+    price: number;
 
-//     @IsNumber()
-//     price: number;
+    @IsNumber()
+    @Min(0)
+    stock: number;
 
-//     @IsBoolean()
-//     stock: boolean;
+    @IsOptional()
+    @IsUrl()
+    imgUrl?: string;
 
-//     @IsUrl()
-//     imgUrl: string;
-// }
+    @IsUUID()
+    categoryId: string;
+}

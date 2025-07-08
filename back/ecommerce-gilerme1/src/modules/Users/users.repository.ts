@@ -48,4 +48,9 @@ export class UsersRepository {
         const result = await this.repo.delete(id);
         return result.affected ? id : null;
     } 
+
+    // async findOneByEmail(email: string) {
+    //     return await this.users.find((user) => user.email === email)
+    // }
+
 }

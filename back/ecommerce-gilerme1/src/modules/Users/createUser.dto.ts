@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsEmail, IsNotEmpty, IsNumberString, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class CreateUserDto {
     @IsNotEmpty()
@@ -29,8 +29,8 @@ export class CreateUserDto {
     address: string;
 
     @IsNotEmpty()
-    @IsNumberString()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsNotEmpty()
     @IsString()

@@ -5,9 +5,11 @@ import {
   Column,
   ManyToOne,
   ManyToMany,
+  OneToMany,
 } from 'typeorm';
 import { Category } from 'src/entities/category.entity';
 import { OrderDetail } from 'src/entities/orderDetails.entity'; // Agregar esto
+import { File } from './file.entity';
 
 @Entity('products')
 export class Product {
@@ -31,6 +33,9 @@ export class Product {
 
   @ManyToOne(() => Category, (category) => category.products, { eager: true, nullable: false }) 
   category: Category;
+
+  @OneToMany(() => File, (file) => file.product)
+  files: File[];
 
   @ManyToMany(() => OrderDetail, (orderDetail) => orderDetail.products)
   orderDetails: OrderDetail[];

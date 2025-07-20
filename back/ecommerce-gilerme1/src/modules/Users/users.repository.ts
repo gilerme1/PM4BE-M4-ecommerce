@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from 'src/entities/user.entity'; 
+import { User } from '../../entities/user.entity'; 
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './createUser.dto';
 
@@ -16,7 +16,7 @@ export class UsersRepository {
     async getUsers() {
         // Excluir password al listar todos los usuarios
         const users = await this.repo.find();
-        return users.map(({ password, ...user }) => user);
+        return users.map(({ password, role, ...user }) => user);
     }
 
     async getAllUsers() {
@@ -33,7 +33,7 @@ export class UsersRepository {
     async createUser(userDto: CreateUserDto) {
         const newUser = this.repo.create(userDto); // solo campos válidos
         const savedUser = await this.repo.save(newUser);
-        return savedUser.id;
+        return { id: savedUser.id, email: savedUser.email };
     }
 
     async updateUser(id: string, user: Partial<CreateUserDto>) {
@@ -47,10 +47,11 @@ export class UsersRepository {
     async deleteUser(id: string) {
         const result = await this.repo.delete(id);
         return result.affected ? id : null;
-    } 
+    }
 
-    // async findOneByEmail(email: string) {
-    //     return await this.users.find((user) => user.email === email)
-    // }
+    async getUsersByEmail(email: string) {
+        return this.repo.findOne({ where: { email }});
+    }
+} 
 
-}
+

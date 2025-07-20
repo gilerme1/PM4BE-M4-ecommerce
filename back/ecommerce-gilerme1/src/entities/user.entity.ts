@@ -5,7 +5,8 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { Order } from 'src/entities/order.entity'; 
+import { Order } from '../entities/order.entity'; 
+import { Role } from '../roles/roles.enum';
 
 @Entity('users')
 export class User {
@@ -18,8 +19,11 @@ export class User {
     @Column({ type: 'varchar', length: 50, unique: true, nullable: false })
     email: string;
 
-    @Column({ type: 'varchar', length: 20, nullable: false })
+    @Column({ type: 'varchar', length: 100, nullable: false })
     password: string;
+
+    @Column({ type: 'enum', enum: Role, default: Role.USER })
+    role: Role;
 
     @Column({ type: 'varchar', nullable: true })
     phone: string;

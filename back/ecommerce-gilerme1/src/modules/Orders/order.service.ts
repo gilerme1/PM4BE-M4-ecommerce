@@ -1,10 +1,5 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-// import { InjectRepository } from "@nestjs/typeorm";
-// import { Repository } from "typeorm";
-// import { Product } from "src/entities/product.entity";
-// import { OrderDetail } from "src/entities/orderDetails.entity";
-// import { User } from "src/entities/user.entity";
 import { CreateOrderDto } from "./createOrder.dto";
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { OrdersRepository } from "./orders.repository";

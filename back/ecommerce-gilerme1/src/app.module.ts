@@ -3,19 +3,18 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './modules/Users/users.module';
 import { ProductsModule } from './modules/Products/products.module';
 import { AuthModule } from './modules/Auth/auth.module';
-import { AuthGuard } from './guards/auth.guards';
-import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeOrmConfig from "./config/typeorm"; 
 import { OrdersModule } from './modules/Orders/orders.module';
+import { SeedsModule } from './seeds/seeds.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [typeOrmConfig],            // <--- Aquí cargas tu configuración registrada como 'typeorm'
-      envFilePath: "./.env.development" // Puedes mantener esto si quieres especificar el archivo .env
+      envFilePath: './.env.development',
+      load: [typeOrmConfig],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
@@ -27,12 +26,10 @@ import { OrdersModule } from './modules/Orders/orders.module';
     UsersModule,
     ProductsModule,
     OrdersModule,
-    AuthModule
+    AuthModule,
+    SeedsModule
   ],
   controllers: [],
-  providers: [{
-    provide: APP_GUARD,
-    useClass: AuthGuard
-  }],
+  providers: [],
 })
 export class AppModule {}

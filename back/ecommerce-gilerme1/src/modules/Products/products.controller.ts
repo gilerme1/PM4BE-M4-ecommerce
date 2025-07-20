@@ -1,26 +1,17 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Controller, Get, Param, Query, Res, HttpStatus, ParseUUIDPipe, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res, HttpStatus, ParseUUIDPipe, BadRequestException, UseGuards, Put, Body } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Response } from 'express';
+import { AuthGuard } from '../../guards/auth.guards';
+import { UpdateProductDto } from './updateProduct.dto';
+import { Roles } from '../../roles/roles.decorator';
+import { RolesGuard } from '../../guards/roles.guard';
+import { Role } from '../../roles/roles.enum';
 
 @Controller('products')
 export class ProductsController {
     constructor(private readonly service: ProductsService) {}
-
-    // Pre-carga productos, asociándolos a las categorías ya creadas
-    @Get('seeder')
-    async seed(@Res() res: Response) {
-        try {
-        const result = await this.service.seedProducts();
-        return res.status(HttpStatus.CREATED).json(result);
-        } catch (error) {
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-            error: true,
-            message: 'Error al ejecutar el seeder de productos',
-        });
-        }
-    }
 
     // GET con paginación
     @Get()
@@ -44,17 +35,17 @@ export class ProductsController {
     @Get(':id')
     async getById(
         @Param(
-                    'id', 
-                    new ParseUUIDPipe({
-                        exceptionFactory: () =>
-                            new BadRequestException({
-                            error: true,
-                            message: 'Error de validación: UUID de producto NO válido',
-                            }),
+                'id', 
+                new ParseUUIDPipe({
+                    exceptionFactory: () =>
+                        new BadRequestException({
+                        error: true,
+                        message: 'Error de validación: UUID de producto NO válido',
                         }),
-                    )
-                    id: string,
-                    @Res() res: Response, ) {
+                    }),
+                )
+                id: string,
+                @Res() res: Response, ) {
         try {
         const product = await this.service.getById(id);
         if (!product) {
@@ -71,5 +62,52 @@ export class ProductsController {
         });
         }
     }
+
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Put(':id')
+    async updateProduct(
+    @Param('id', new ParseUUIDPipe({
+        exceptionFactory: () =>
+        new BadRequestException({
+            error: true,
+            message: 'UUID de producto inválido',
+        }),
+    }))
+    id: string,
+    @Body() data: UpdateProductDto,
+    @Res() res: Response,
+    ) {
+    try {
+        const updated = await this.service.update(id, data);
+        if (!updated) {
+        return res.status(HttpStatus.NOT_FOUND).json({
+            error: true,
+            message: `No existe el producto con id ${id}`,
+            });
+        }
+        return res.status(HttpStatus.OK).json(updated);
+        } catch (error) {
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            error: true,
+            message: `Error al actualizar el producto con id ${id}`,
+            });
+        }
+    }
+
+    // Pre-carga productos, asociándolos a las categorías ya creadas
+    // @Get('seeder')
+    // async seed(@Res() res: Response) {
+    //     try {
+    //     const result = await this.service.seedProducts();
+    //         return res.status(HttpStatus.CREATED).json(result);
+    //     } catch (error) {
+    //         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+    //             error: true,
+    //             message: 'Error al ejecutar el seeder de productos',
+    //         });
+    //     }
+    // }
+
 }
 

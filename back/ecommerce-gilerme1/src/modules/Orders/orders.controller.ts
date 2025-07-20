@@ -1,14 +1,16 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Response } from 'express';
-import { BadRequestException, Body, Controller, Get, HttpStatus, Param, ParseUUIDPipe, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, HttpStatus, Param, ParseUUIDPipe, Post, Res, UseGuards } from "@nestjs/common";
 import { OrdersService } from "./order.service";
 import { CreateOrderDto } from "./createOrder.dto";
+import { AuthGuard } from '../../guards/auth.guards';
 
 @Controller('orders')
 export class OrdersController {
     constructor(private readonly service: OrdersService) {}
 
+    @UseGuards(AuthGuard)
     @Post()
     async createOrder(@Body() body: CreateOrderDto, @Res() res: Response) {
         try {
@@ -22,6 +24,7 @@ export class OrdersController {
         }
     }
 
+    @UseGuards(AuthGuard)
     @Get(':id')
     async getOrder(
         @Param(

@@ -4,8 +4,8 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateFileDto } from "./createFile.dto";
-import { Product } from "src/entities/product.entity";
-import { File } from "src/entities/file.entity";
+import { Product } from "../../entities/product.entity";
+import { File } from "../../entities/file.entity";
 
 @Injectable()
 export class FilesRepository {
@@ -22,10 +22,10 @@ export class FilesRepository {
         if (!product) throw new NotFoundException('Producto no encontrado');
 
         const file = this.filesRepo.create({
-        name: dto.name,
-        mimeType: dto.mimeType,
-        url: dto.url,
-        product,
+            name: dto.name,
+            mimeType: dto.mimeType,
+            url: dto.url,
+            product,
         } as Partial<File>); 
 
         return this.filesRepo.save(file);

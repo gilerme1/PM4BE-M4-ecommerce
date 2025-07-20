@@ -8,8 +8,8 @@ import {
     JoinTable,
     JoinColumn,
 } from 'typeorm';
-import { Order } from 'src/entities/order.entity';
-import { Product } from 'src/entities/product.entity';
+import { Order } from '../entities/order.entity';
+import { Product } from '../entities/product.entity';
 
 @Entity('order_details')
 export class OrderDetail {

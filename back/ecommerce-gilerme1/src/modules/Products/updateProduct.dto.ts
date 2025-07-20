@@ -1,6 +1,27 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateProductDto } from './createProduct.dto';
+import { IsOptional, IsString, IsNumber, IsUrl, Min } from 'class-validator';
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {}
+export class UpdateProductDto {
+    @IsOptional()
+    @IsString()
+    name?: string;
+
+    @IsOptional()
+    @IsString()
+    description?: string;
+
+    @IsOptional()
+    @IsNumber()
+    @Min(0)
+    price?: number;
+
+    @IsOptional()
+    @IsNumber()
+    @Min(0)
+    stock?: number;
+
+    @IsOptional()
+    @IsUrl()
+    imgUrl?: string;
+}
+

@@ -4,6 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { loggerGlobal } from './middlewares/logger.middleware';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { ProductsSeed } from './seeds/products/products.seed';
+import { CategoriesSeed } from './seeds/categories/categories.seed';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,6 +30,19 @@ async function bootstrap() {
   );
 
   app.use(loggerGlobal)
+
+  try {
+    const categoriesSeed = app.get(CategoriesSeed);
+    await categoriesSeed.seed();
+    console.log('✅ Categorías insertadas.');
+
+    const productsSeed = app.get(ProductsSeed);
+    await productsSeed.seed();
+    console.log('✅ Productos insertados.');
+  } catch (error) {
+    console.error('❌ Error en seeding:', error);
+  }
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

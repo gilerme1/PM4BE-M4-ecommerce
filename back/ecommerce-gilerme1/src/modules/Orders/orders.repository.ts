@@ -46,11 +46,11 @@ export class OrdersRepository {
         await this.productRepo.save(product);
         }
 
-        // ⚠️ Se crea el OrderDetail con los productos y la orden vinculada
+        // Se crea el OrderDetail con los productos y la orden vinculada
         const orderDetail = this.detailRepo.create({ price: total, products: productosDisponibles, order });
         await this.detailRepo.save(orderDetail);
 
-        // ⚠️ Vincula el detalle a la orden y vuelve a guardar
+        // Vincula el detalle a la orden y vuelve a guardar
         order.orderDetail = orderDetail;
         await this.orderRepo.save(order);
 

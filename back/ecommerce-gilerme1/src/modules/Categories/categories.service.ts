@@ -11,7 +11,7 @@ export class CategoriesService {
         return this.repo.getCategories();
     }
 
-    addCategories(names: string[]) {
-        return this.repo.addCategories(names);
-    }
+    // addCategories(names: string[]) {
+    //     return this.repo.addCategories(names);
+    // }
 }

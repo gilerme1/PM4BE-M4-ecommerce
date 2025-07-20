@@ -7,8 +7,8 @@ import {
   ManyToMany,
   OneToMany,
 } from 'typeorm';
-import { Category } from 'src/entities/category.entity';
-import { OrderDetail } from 'src/entities/orderDetails.entity'; // Agregar esto
+import { Category } from '../entities/category.entity';
+import { OrderDetail } from '../entities/orderDetails.entity'; // Agregar esto
 import { File } from './file.entity';
 
 @Entity('products')

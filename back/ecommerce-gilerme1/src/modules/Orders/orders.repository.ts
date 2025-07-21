@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Order } from "src/entities/order.entity";
-import { OrderDetail } from "src/entities/orderDetails.entity";
-import { Product } from "src/entities/product.entity";
-import { User } from "src/entities/user.entity";
+import { Order } from "../../entities/order.entity";
+import { OrderDetail } from "../../entities/orderDetails.entity";
+import { Product } from "../../entities/product.entity";
+import { User } from "../../entities/user.entity";
 import { In, Repository } from "typeorm";
 import { CreateOrderDto } from "./createOrder.dto";
 

@@ -61,20 +61,6 @@ export class UsersController {
         }
     }
 
-    // YA NO SE USA pasa a usarse @Post('signup')
-    // @Post()  
-    // async create(@Body() body: CreateUserDto, @Res() res: Response) {
-    //     try {
-    //         const id = await this.userService.createUser(body);
-    //         return res.status(HttpStatus.CREATED).json({ id });
-    //     } catch (error) {
-    //         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-    //             error: true,
-    //             message: 'Error al crear el usuario',
-    //         });
-    //     }
-    // }
-
     @UseGuards(AuthGuard)
     @Put(':id')
     async update(
@@ -122,3 +108,18 @@ export class UsersController {
         }
     }
 }
+
+
+    // YA NO SE USA pasa a usarse @Post('signup')
+    // @Post()  
+    // async create(@Body() body: CreateUserDto, @Res() res: Response) {
+    //     try {
+    //         const id = await this.userService.createUser(body);
+    //         return res.status(HttpStatus.CREATED).json({ id });
+    //     } catch (error) {
+    //         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+    //             error: true,
+    //             message: 'Error al crear el usuario',
+    //         });
+    //     }
+    // }

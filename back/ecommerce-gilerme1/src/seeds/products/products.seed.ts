@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { productsMock } from './products-mock';
-import { Product } from 'src/entities/product.entity';
-import { Category } from 'src/entities/category.entity';
+import { Product } from '../../entities/product.entity';
+import { Category } from '../../entities/category.entity';
 
 @Injectable()
 export class ProductsSeed {

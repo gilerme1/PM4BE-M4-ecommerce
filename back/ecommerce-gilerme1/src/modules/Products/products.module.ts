@@ -3,7 +3,7 @@ import { forwardRef, Module } from "@nestjs/common";
 import { ProductsService } from "./products.service";
 import { ProductsController } from "./products.controller";
 import { CategoriesModule } from "../Categories/categories.module";
-import { Product } from "src/entities/product.entity";
+import { Product } from "../../entities/product.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ProductsRepository } from "./products.repository";
 import { FilesModule } from "../files/files.module";

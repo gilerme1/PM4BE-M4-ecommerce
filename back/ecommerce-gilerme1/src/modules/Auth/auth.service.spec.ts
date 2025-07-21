@@ -14,7 +14,7 @@ import { BadRequestException } from '@nestjs/common';
 import { SignupUserDto } from '../Users/signupUserDto';
 
 
-describe('AuthService - test', () => {
+describe('AuthService - test de funcionalidades del servicio de autenticación', () => {
     let authService: AuthService;
 
     const mockUserDto: SignupUserDto = {   // Definimos un DTO de usuario simulado para usar en las pruebas.

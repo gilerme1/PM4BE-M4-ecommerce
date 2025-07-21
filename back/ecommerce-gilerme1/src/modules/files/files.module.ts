@@ -4,9 +4,9 @@ import { FilesService } from './files.service';
 import { CloudinaryConfig } from '../../config/cloudinary';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FilesController } from './files.controller';
-import { Product } from 'src/entities/product.entity';
+import { Product } from '../../entities/product.entity';
 import { ProductsRepository } from '../Products/products.repository';
-import { File } from 'src/entities/file.entity';
+import { File } from '../../entities/file.entity';
 import { FilesRepository } from './files.repository'; 
 import { AuthModule } from '../Auth/auth.module';
 

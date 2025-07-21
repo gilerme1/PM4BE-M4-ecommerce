@@ -10,8 +10,6 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../Users/createUser.dto';
 
 @Injectable()
-
-@Injectable()
 export class AuthService {
     constructor(
         private readonly usersRepo: UsersRepository,

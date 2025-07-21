@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from 'src/entities/category.entity';
+import { Category } from '../../entities/category.entity';
 import { Repository, In } from 'typeorm';
 import { categories } from './categories-mock';
 

@@ -62,6 +62,22 @@ describe('AuthController (e2e) - pruebas de integración de 5 rutas distintas', 
     token = loginResponse.body.access_token;  // Guarda el token de acceso
   });
 
+   //Cada test crea su propio usuario con beforeEach(), afterEach() se asegura de eliminar ese usuario
+  afterEach(async () => {
+    if (createdUserId) {
+      await request(app.getHttpServer())
+        .delete(`/users/${createdUserId}`)
+        .set('Authorization', `Bearer ${token}`)
+        // Aquí aceptamos 200 (existe y borró) o 404 (ya borrado)
+        .expect(res => {
+          if (res.status !== 200 && res.status !== 404) {
+            throw new Error(`Error inesperado eliminando usuario: status ${res.status}`);
+          }
+        });
+    }
+  });
+
+
   it('✅ POST /auth/signup - crea un usuario nuevo', async () => {
     const email = `nuevo.usuario+${Date.now()}@example.com`; // Email para el nuevo usuario
     const response = await request(app.getHttpServer())

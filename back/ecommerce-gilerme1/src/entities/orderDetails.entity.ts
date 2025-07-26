@@ -10,22 +10,25 @@ import {
 } from 'typeorm';
 import { Order } from '../entities/order.entity';
 import { Product } from '../entities/product.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('order_details')
 export class OrderDetail {
     @PrimaryGeneratedColumn('uuid')
+    @ApiProperty({ format: 'uuid' })
     id: string;
 
     @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+    @ApiProperty({ example: 29.99 })
     price: number;
 
     @OneToOne(() => Order, (order) => order.orderDetail, { nullable: false, onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'orderId' }) // La FK 'orderId' se crea aquí en la tabla order_details
+    @JoinColumn({ name: 'orderId' })
     order: Order;
 
     @ManyToMany(() => Product, (product) => product.orderDetails)
     @JoinTable({
-        name: 'order_details_products', // Nombre más conciso para la tabla intermedia
+        name: 'order_details_products',
         joinColumn: { name: 'orderDetailId', referencedColumnName: 'id' },
         inverseJoinColumn: { name: 'productId', referencedColumnName: 'id' },
     })

@@ -6,6 +6,7 @@ import { loggerGlobal } from './middlewares/logger.middleware';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { ProductsSeed } from './seeds/products/products.seed';
 import { CategoriesSeed } from './seeds/categories/categories.seed';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,6 +31,16 @@ async function bootstrap() {
   );
 
   app.use(loggerGlobal)
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Demo Nest')
+    .setDescription( `Esta es una API construida con Nest para ser empleada en el modulo 4 del Backend de Fullstack Devs`)
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  
+  SwaggerModule.setup('api', app, document);
 
   try {
     const categoriesSeed = app.get(CategoriesSeed);

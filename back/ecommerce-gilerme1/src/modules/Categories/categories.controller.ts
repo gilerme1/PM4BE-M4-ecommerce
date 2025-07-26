@@ -4,7 +4,9 @@ import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import data from 'src/modules/Products/data_products'; 
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Categories')
 @Controller('categories')
 export class CategoriesController {
     constructor(private readonly service: CategoriesService) {}

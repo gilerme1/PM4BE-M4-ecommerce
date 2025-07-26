@@ -5,11 +5,14 @@ import { BadRequestException, Body, Controller, Get, HttpStatus, Param, ParseUUI
 import { OrdersService } from "./order.service";
 import { CreateOrderDto } from "./createOrder.dto";
 import { AuthGuard } from '../../guards/auth.guards';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Orders')
 @Controller('orders')
 export class OrdersController {
     constructor(private readonly service: OrdersService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Post()
     async createOrder(@Body() body: CreateOrderDto, @Res() res: Response) {
@@ -24,6 +27,7 @@ export class OrdersController {
         }
     }
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get(':id')
     async getOrder(

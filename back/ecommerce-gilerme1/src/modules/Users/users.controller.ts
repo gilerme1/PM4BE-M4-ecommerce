@@ -8,11 +8,14 @@ import { CreateUserDto } from './createUser.dto';
 import { Roles } from '../../roles/roles.decorator';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Role } from '../../roles/roles.enum';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly userService: UsersService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.ADMIN)
     @Get()
@@ -28,6 +31,7 @@ export class UsersController {
         }
     }
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get(':id')
     async getUserById(
@@ -61,8 +65,10 @@ export class UsersController {
         }
     }
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Put(':id')
+    @ApiBody({ type: CreateUserDto })
     async update(
         @Param('id', new ParseUUIDPipe()) id: string,
         @Body() body: Partial<CreateUserDto>, 
@@ -85,6 +91,7 @@ export class UsersController {
         }
     }
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Delete(':id')
     async delete(

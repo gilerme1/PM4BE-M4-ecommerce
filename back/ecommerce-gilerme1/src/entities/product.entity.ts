@@ -10,33 +10,40 @@ import {
 import { Category } from '../entities/category.entity';
 import { OrderDetail } from '../entities/orderDetails.entity'; 
 import { File } from './file.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('products')
 export class Product {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+    @PrimaryGeneratedColumn('uuid')
+    @ApiProperty({ format: 'uuid' })
+    id: string;
 
-  @Column({ type: 'varchar', length: 50, nullable: false }) 
-  name: string;
+    @Column({ type: 'varchar', length: 50, nullable: false })
+    @ApiProperty()
+    name: string;
 
-  @Column({ type: 'text', nullable: false }) 
-  description: string;
+    @Column({ type: 'text', nullable: false })
+    @ApiProperty()
+    description: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false }) 
-  price: number;
+    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+    @ApiProperty({ example: 19.99 })
+    price: number;
 
-  @Column({ type: 'int', nullable: false }) 
-  stock: number;
+    @Column({ type: 'int', nullable: false })
+    @ApiProperty({ example: 100 })
+    stock: number;
 
-  @Column({ type: 'varchar', default: 'https://via.placeholder.com/150' })
-  imgUrl?: string; // Sigue siendo opcional en TS ya que tiene un default
+    @Column({ type: 'varchar', default: 'https://via.placeholder.com/150' })
+    @ApiProperty({ required: false })
+    imgUrl?: string;
 
-  @ManyToOne(() => Category, (category) => category.products, { eager: true, nullable: false }) 
-  category: Category;
+    @ManyToOne(() => Category, (category) => category.products, { eager: true, nullable: false })
+    category: Category;
 
-  @OneToMany(() => File, (file) => file.product)
-  files: File[];
+    @OneToMany(() => File, (file) => file.product)
+    files: File[];
 
-  @ManyToMany(() => OrderDetail, (orderDetail) => orderDetail.products)
-  orderDetails: OrderDetail[];
+    @ManyToMany(() => OrderDetail, (orderDetail) => orderDetail.products)
+    orderDetails: OrderDetail[];
 }

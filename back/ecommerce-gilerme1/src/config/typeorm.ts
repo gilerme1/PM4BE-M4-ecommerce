@@ -3,8 +3,13 @@ import { DataSource, DataSourceOptions } from "typeorm";
 import { config as dotenvconfig } from "dotenv";
 import { registerAs } from "@nestjs/config";
 
-// Cargar variables de entorno desde .env.development
-dotenvconfig({ path: "./.env.development" });
+// Detectar entorno y cargar el .env correcto
+const envFilePath =
+    process.env.NODE_ENV === "production"
+    ? "./.env.production"
+    : "./.env.development";
+
+dotenvconfig({ path: envFilePath });
 
 const config = {
     type: 'postgres',
@@ -17,7 +22,8 @@ const config = {
 
     // Estas dos líneas son importantes:
     autoLoadEntities: true, // carga automáticamente las entidades declaradas en los módulos
-    synchronize: false,     // desactivado para evitar perder datos en producción
+    synchronize: true,     // desactivado para evitar perder datos en producción
+    // synchronize: process.env.NODE_ENV === 'production', // 👈 solo true en Render
 
     logging: true,
 

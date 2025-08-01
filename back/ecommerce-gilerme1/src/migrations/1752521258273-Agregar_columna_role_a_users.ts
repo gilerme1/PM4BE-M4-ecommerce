@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class AgregarColumnaRoleAUsers1752521258273 implements MigrationInterface {

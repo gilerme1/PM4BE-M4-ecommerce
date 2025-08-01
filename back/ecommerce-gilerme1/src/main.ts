@@ -42,6 +42,8 @@ async function bootstrap() {
   
   SwaggerModule.setup('api', app, document);
 
+  await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
+
   try {
     const categoriesSeed = app.get(CategoriesSeed);
     await categoriesSeed.seed();
@@ -54,6 +56,5 @@ async function bootstrap() {
     console.error('❌ Error en seeding:', error);
   }
 
-  await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
 bootstrap();

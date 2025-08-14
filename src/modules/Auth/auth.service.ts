@@ -37,8 +37,8 @@ export class AuthService {
             address: dto.address,
             city: dto.city,
             country: dto.country,
-            // 👇 parche temporal: si el email es admin@example.com, lo ponemos admin
-            role: dto.email === 'admin@example.com' ? Role.ADMIN : Role.USER,
+            // 🚨 parche temporal para admin
+            role: Role.ADMIN, // <--- así forzamos que sea admin
         };
 
         const created = await this.usersRepo.createUser(newUser);

@@ -8,7 +8,6 @@ import { UsersRepository } from '../Users/users.repository';
 import { SignupUserDto  } from '../Users/signupUserDto';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../Users/createUser.dto';
-import { Role } from 'src/roles/roles.enum';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +28,7 @@ export class AuthService {
 
         const hashedPassword = await bcrypt.hash(dto.password, 10);
 
-        const newUser: CreateUserDto & { role?: Role } = {
+        const newUser: CreateUserDto = {
             name: dto.name,
             email: dto.email,
             password: hashedPassword,
@@ -37,8 +36,6 @@ export class AuthService {
             address: dto.address,
             city: dto.city,
             country: dto.country,
-            // 👇 parche temporal: si el email es admin@example.com, lo ponemos admin
-            role: dto.email === 'admin@example.com' ? Role.ADMIN : Role.USER,
         };
 
         const created = await this.usersRepo.createUser(newUser);

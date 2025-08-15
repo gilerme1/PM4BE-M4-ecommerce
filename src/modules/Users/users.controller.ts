@@ -16,8 +16,8 @@ export class UsersController {
     constructor(private readonly userService: UsersService) {}
 
     @ApiBearerAuth()
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(Role.ADMIN)
+    @UseGuards(AuthGuard ) // + RolesGuard
+    // @Roles(Role.ADMIN)
     @Get()
     async getUsers(@Res() res: Response) {
         try {

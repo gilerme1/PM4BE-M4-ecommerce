@@ -16,7 +16,7 @@ export class UsersRepository {
     async getUsers() {
         // Excluir password al listar todos los usuarios
         const users = await this.repo.find();
-        return users.map(({ password, role, ...user }) => user);
+        return users.map(({ password, ...user }) => user);
     }
 
     async getAllUsers() {

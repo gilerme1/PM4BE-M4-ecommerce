@@ -23,19 +23,4 @@ export class CategoriesController {
         });
         }
     }
-    
-    // @Get('seeder')
-    // async seedCategories(@Res() res: Response) {
-    //     try {
-    //     const uniqueNames = [...new Set(data.map((item) => item.category))];
-    //     const result = await this.service.addCategories(uniqueNames);
-    //     return res.status(HttpStatus.CREATED).json(result);
-    //     } catch (error) {
-    //     return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-    //         error: true,
-    //         message: 'Error al ejecutar el seeder de categorías',
-    //     });
-    //     }
-    // }
-
 }

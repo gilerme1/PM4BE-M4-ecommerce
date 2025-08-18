@@ -100,19 +100,5 @@ export class ProductsController {
             }
     }
 
-    // Pre-carga productos, asociándolos a las categorías ya creadas
-    // @Get('seeder')
-    // async seed(@Res() res: Response) {
-    //     try {
-    //     const result = await this.service.seedProducts();
-    //         return res.status(HttpStatus.CREATED).json(result);
-    //     } catch (error) {
-    //         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-    //             error: true,
-    //             message: 'Error al ejecutar el seeder de productos',
-    //         });
-    //     }
-    // }
-
 }
 

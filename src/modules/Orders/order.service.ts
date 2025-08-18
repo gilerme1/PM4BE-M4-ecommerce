@@ -8,9 +8,6 @@ import { OrdersRepository } from "./orders.repository";
 export class OrdersService {
     constructor(
         private readonly repo: OrdersRepository,
-        // @InjectRepository(User) private userRepo: Repository<User>,
-        // @InjectRepository(Product) private productRepo: Repository<Product>,
-        // @InjectRepository(OrderDetail) private detailRepo: Repository<OrderDetail>
     ) {}
 
     async addOrder(dto: CreateOrderDto) {

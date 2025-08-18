@@ -14,7 +14,7 @@ async function bootstrap() {
     { 
       whitelist: true,              // elimina propiedades no incluidas en el DTO
       forbidNonWhitelisted: true,   // lanza error si se reciben propiedades no permitidas
-      transform: true,              // transforma automáticamente payloads a los tipos definidos en los DTOs
+      transform: true,              // transforma automáticamente los valores recibidos en el tipo DTOs
       exceptionFactory: (errors) => {
         const cleanErrors = errors.map(error => {
           return {

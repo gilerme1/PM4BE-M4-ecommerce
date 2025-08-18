@@ -22,7 +22,8 @@ const config = {
     database: process.env.DB_NAME,
     autoLoadEntities: true, // carga automáticamente las entidades declaradas en los módulos
     // synchronize: true,     // desactivado para evitar perder datos en producción
-    synchronize: process.env.NODE_ENV !== 'production', // 👈 solo true en Render
+    // synchronize: process.env.NODE_ENV !== 'production', // 👈 solo true en Render
+    synchronize: false,
     logging: true,
 
     // Importante para que las migraciones y entidades funcionen desde dist/
